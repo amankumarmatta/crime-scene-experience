@@ -19,20 +19,16 @@ public class LobbyManager : MonoBehaviour
 
     void OnStartButtonClicked()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneLoader.Instance.LoadScene("Room Select");
     }
 
     void OnExitButtonClicked()
     {
-        // Logic to exit the game
-        Debug.Log("Exit button clicked. Exiting the game...");
-        Application.Quit();
+        SceneLoader.Instance.ExitGame();
     }
 
     void OnGuideButtonClicked()
     {
-        // Logic to show the game guide
-        Debug.Log("Guide button clicked. Showing the game guide...");
-        // Add your guide showing logic here
+        
     }
 }
