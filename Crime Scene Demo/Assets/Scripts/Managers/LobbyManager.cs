@@ -20,15 +20,17 @@ public class LobbyManager : MonoBehaviour
     void OnStartButtonClicked()
     {
         SceneLoader.Instance.LoadScene("Room Select");
+        AudioManager.Instance.PlayClick();
     }
 
     void OnExitButtonClicked()
     {
         SceneLoader.Instance.ExitGame();
+        AudioManager.Instance.PlayClick();
     }
 
     void OnGuideButtonClicked()
     {
-        
+        AudioManager.Instance.PlayClick();
     }
 }

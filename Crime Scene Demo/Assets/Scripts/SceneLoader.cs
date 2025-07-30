@@ -34,7 +34,7 @@ public class SceneLoader : MonoBehaviour
         {
             fadeAnimator = FindObjectOfType<Animator>();
         }
-        
+
         FadeInScene();
     }
 
