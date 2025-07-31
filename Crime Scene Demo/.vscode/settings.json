@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Crime Scene Demo.sln"
+    "dotnet.defaultSolution": "Crime Scene Demo.sln",
+    "dotnet.preferCSharpExtension": true
 }
