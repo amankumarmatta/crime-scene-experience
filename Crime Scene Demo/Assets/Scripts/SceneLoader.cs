@@ -11,19 +11,23 @@ public class SceneLoader : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
-        var canvas = Instantiate(fadeCanvasPrefab);
-        DontDestroyOnLoad(canvas);
-
-        fadeAnimator = canvas.GetComponentInChildren<Animator>();
+        if (fadeCanvasPrefab != null && fadeAnimator == null)
+        {
+            var canvas = Instantiate(fadeCanvasPrefab);
+            DontDestroyOnLoad(canvas);
+            fadeAnimator = canvas.GetComponentInChildren<Animator>();
+        }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
