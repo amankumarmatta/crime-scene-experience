@@ -7,8 +7,8 @@ public class EvidenceManager : MonoBehaviour
     public static EvidenceManager Instance;
 
     public EvidenceList evidenceListSO;
-    public Transform toggleParent; // The parent panel for toggles
-    public GameObject togglePrefab; // A prefab Toggle with label
+    public Transform toggleParent;
+    public GameObject togglePrefab;
 
     private Dictionary<string, Toggle> evidenceToggles = new Dictionary<string, Toggle>();
 
