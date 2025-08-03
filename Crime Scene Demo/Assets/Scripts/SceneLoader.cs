@@ -39,7 +39,7 @@ public class SceneLoader : MonoBehaviour
             fadeAnimator = FindObjectOfType<Animator>();
         }
 
-        // Assign Toggle Parent dynamically after scene loads
+        var timerTextObj = GameObject.Find("TimerText");
         var togglePanel = GameObject.Find("TogglePanel")?.transform;
 
         if (togglePanel != null && EvidenceManager.Instance != null)

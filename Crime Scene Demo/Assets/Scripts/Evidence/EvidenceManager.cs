@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class EvidenceManager : MonoBehaviour
@@ -7,10 +8,12 @@ public class EvidenceManager : MonoBehaviour
     public static EvidenceManager Instance;
 
     public EvidenceList evidenceListSO;
-    Transform toggleParent;
+    public Transform toggleParent;
     public GameObject togglePrefab;
 
     private Dictionary<string, Toggle> evidenceToggles = new Dictionary<string, Toggle>();
+
+    private bool isStaticScene = false;
 
     private void Awake()
     {
@@ -23,24 +26,40 @@ public class EvidenceManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        SetupToggles();
     }
 
-    private void SetupToggles()
+    public void AssignToggleParent(Transform newParent)
     {
+        toggleParent = newParent;
+
+        string currentScene = SceneManager.GetActiveScene().name;
+        isStaticScene = currentScene == "Room 1";
+
         evidenceToggles.Clear();
 
-        foreach (var item in evidenceListSO.evidenceItems)
+        if (isStaticScene)
         {
-            var toggleGO = Instantiate(togglePrefab, toggleParent);
-            toggleGO.name = $"Toggle_{item}";
-            var toggle = toggleGO.GetComponent<Toggle>();
-            var label = toggleGO.GetComponentInChildren<Text>();
-            label.text = item;
+            RegisterStaticToggles();
+        }
+        else
+        {
+            // Clear Panel for dynamic scenes
+            foreach (Transform child in toggleParent)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
 
-            toggle.gameObject.SetActive(false); // Hide initially
-            evidenceToggles.Add(item, toggle);
+    private void RegisterStaticToggles()
+    {
+        Toggle[] toggles = toggleParent.GetComponentsInChildren<Toggle>();
+
+        foreach (Toggle toggle in toggles)
+        {
+            string itemName = toggle.GetComponentInChildren<Text>().text;
+            evidenceToggles[itemName] = toggle;
+            toggle.isOn = false;
         }
     }
 
@@ -48,23 +67,25 @@ public class EvidenceManager : MonoBehaviour
     {
         if (evidenceToggles.ContainsKey(evidenceID))
         {
+            // Static Scene Toggle Found → Turn ON
             var toggle = evidenceToggles[evidenceID];
-            toggle.gameObject.SetActive(true);
             toggle.isOn = true;
+        }
+        else if (!isStaticScene)
+        {
+            // Dynamic Scene → Create Toggle on-the-fly
+            var toggleGO = Instantiate(togglePrefab, toggleParent);
+            toggleGO.name = $"Toggle_{evidenceID}";
+            var toggle = toggleGO.GetComponent<Toggle>();
+            var label = toggleGO.GetComponentInChildren<Text>();
+            label.text = evidenceID;
+
+            toggle.isOn = true;
+            evidenceToggles[evidenceID] = toggle;
         }
         else
         {
-            Debug.LogWarning($"Evidence ID '{evidenceID}' not found in the list!");
+            Debug.LogWarning($"Evidence ID '{evidenceID}' not found in Room 1 toggles!");
         }
-    }
-
-    public void AssignToggleParent(Transform newParent)
-    {
-        toggleParent = newParent;
-        foreach (Transform child in toggleParent)
-        {
-            Destroy(child.gameObject);
-        }
-        SetupToggles();
     }
 }
