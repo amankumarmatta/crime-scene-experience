@@ -7,7 +7,7 @@ public class EvidenceManager : MonoBehaviour
     public static EvidenceManager Instance;
 
     public EvidenceList evidenceListSO;
-    public Transform toggleParent;
+    Transform toggleParent;
     public GameObject togglePrefab;
 
     private Dictionary<string, Toggle> evidenceToggles = new Dictionary<string, Toggle>();
@@ -29,6 +29,8 @@ public class EvidenceManager : MonoBehaviour
 
     private void SetupToggles()
     {
+        evidenceToggles.Clear();
+
         foreach (var item in evidenceListSO.evidenceItems)
         {
             var toggleGO = Instantiate(togglePrefab, toggleParent);
@@ -54,5 +56,15 @@ public class EvidenceManager : MonoBehaviour
         {
             Debug.LogWarning($"Evidence ID '{evidenceID}' not found in the list!");
         }
+    }
+
+    public void AssignToggleParent(Transform newParent)
+    {
+        toggleParent = newParent;
+        foreach (Transform child in toggleParent)
+        {
+            Destroy(child.gameObject);
+        }
+        SetupToggles();
     }
 }
