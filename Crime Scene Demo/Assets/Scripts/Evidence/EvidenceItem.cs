@@ -17,6 +17,6 @@ public class EvidenceItem : MonoBehaviour
     private void OnSelected(SelectEnterEventArgs args)
     {
         Debug.Log($"Selected evidence: {evidenceID}");
-        GameManager.Instance.MarkEvidenceFound(evidenceID);
+        EvidenceManager.Instance.MarkEvidenceFound(evidenceID);
     }
 }
