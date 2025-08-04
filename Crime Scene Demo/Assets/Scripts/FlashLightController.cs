@@ -8,6 +8,7 @@ public class FlashlightController : MonoBehaviour
 
     public void ToggleFlashlight()
     {
+        AudioManager.Instance.PlayClick();
         isFlashlightOn = !isFlashlightOn;
         flashlight.enabled = isFlashlightOn;
     }

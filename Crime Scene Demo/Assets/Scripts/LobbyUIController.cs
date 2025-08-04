@@ -7,6 +7,7 @@ public class LobbyUIController : MonoBehaviour
 
     public void OnContinueClicked()
     {
+        AudioManager.Instance.PlayClick();
         menuPanel.SetActive(true);
         welcomePanel.SetActive(false);
     }

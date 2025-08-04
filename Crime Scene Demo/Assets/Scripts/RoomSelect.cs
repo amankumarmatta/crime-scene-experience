@@ -22,19 +22,19 @@ public class RoomSelect : MonoBehaviour
 
         if (difficulty == "Easy")
         {
-            // Set game parameters for Easy difficulty
+            AudioManager.Instance.PlayClick();
             Debug.Log("Easy difficulty selected.");
             SceneLoader.Instance.LoadScene("Room 1");
         }
         else if (difficulty == "Medium")
         {
-            // Set game parameters for Medium difficulty
+            AudioManager.Instance.PlayClick();
             Debug.Log("Medium difficulty selected.");
             SceneLoader.Instance.LoadScene("Room 2");
         }
         else if (difficulty == "Hard")
         {
-            // Set game parameters for Hard difficulty
+            AudioManager.Instance.PlayClick();
             Debug.Log("Hard difficulty selected.");
             SceneLoader.Instance.LoadScene("Room 3");
         }
