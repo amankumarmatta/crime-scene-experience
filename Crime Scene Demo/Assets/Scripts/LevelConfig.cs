@@ -4,5 +4,6 @@ using UnityEngine;
 public class LevelConfig : ScriptableObject
 {
     public string sceneName;
-    public float timeLimitInSeconds;
+    public int timeLimitInSeconds;
+    public bool useTimer;
 }

@@ -35,12 +35,14 @@ public class LevelManager : MonoBehaviour
 
     public void ReloadLevel()
     {
+        AudioManager.Instance.PlayClick();
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }
 
     public void ExitToLobby()
     {
+        AudioManager.Instance.PlayClick();
         SceneLoader.Instance.LoadScene(lobbySceneName);
     }
 }
