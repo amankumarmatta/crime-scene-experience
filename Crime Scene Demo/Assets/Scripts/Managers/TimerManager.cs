@@ -54,8 +54,18 @@ public class TimerManager : MonoBehaviour
             remainingTime--;
             Debug.Log($"Time Left: {remainingTime}");
         }
+        UpdateTimerDisplay();
         timerRunning = false;
         TimerEnded();
+    }
+    private void UpdateTimerDisplay()
+    {
+        if (timerText != null)
+        {
+            int minutes = Mathf.FloorToInt(remainingTime / 60f);
+            int seconds = Mathf.FloorToInt(remainingTime % 60f);
+            timerText.text = $"{minutes}:{seconds}";
+        }
     }
     private void TimerEnded()
     {
